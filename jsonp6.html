@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function jsonp(src,arg,fn){
+            var script = document.createElement('script');
+            var fnName = "fn_"+(Math.random()+"").slice(2)
+            window[fnName] = fn;
+            var str = "?";
+            for(var k in arg){
+                str = str + k + "=" + arg[k] + "&";
+            }
+            script.src = src + str + "callback="+fnName; 
+            document.body.appendChild(script);
+        }
+        jsonp("http://localhost/jsonp.php",{start:0,count:5},function(data){
+            console.log(data);
+        })
+        jsonp("http://localhost/jsonp.php",{start:0,count:5},function(data){
+            console.log(data.school);
+        })
+    </script>
+</body>
+</html>
